@@ -1,0 +1,19 @@
+{
+  "name": "mi-sport",
+  "version": "1.0.0",
+  "packageManager": "npm@8.19.4",
+  "main": "src/main.ts",
+  "repository": "https://github.com/Ace627/mi-sport.git",
+  "author": "Legendary <1207588603@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
