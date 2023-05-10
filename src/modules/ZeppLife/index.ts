@@ -1,9 +1,9 @@
 import path from 'path'
 import { readFile } from 'fs/promises'
 import dayjs from 'dayjs'
-import { isEmail } from '../../utils/validate'
-import { toUrlEncode } from '../../utils'
-import request from '../../utils/request'
+import { isEmail } from '@/utils/validate'
+import { toUrlEncode } from '@/utils'
+import request from '@/utils/request'
 import type { TokenInfo } from './type'
 
 const Data_Path = path.resolve(process.cwd(), 'src/modules/ZeppLife/data_json.txt')
