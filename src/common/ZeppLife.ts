@@ -1,5 +1,6 @@
 import path from 'path'
 import { readFile } from 'fs/promises'
+import dayjs from 'dayjs'
 import { isEmail } from '../utils/validate'
 import { toUrlEncode } from '../utils'
 import request from '../utils/request'
@@ -64,8 +65,24 @@ export default class ZeepLife {
 
   public async main() {
     try {
+      if (this.step < 0 || this.step > 98800) throw new Error(`步数范围 0 ~ 98800`)
       const code = await this.getAccessCode()
-      const tokenInfo = await this.getTokenInfo(code)
+      const { user_id: userID, app_token: apptoken } = await this.getTokenInfo(code)
+      // 修改运动数据
+      let data_json = await this.getSportData()
+      const finddate = data_json.match(/.*?date%22%3A%22(.*?)%22%2C%22data.*?/)![1]
+      const findstep = data_json.match(/.*?ttl%5C%22%3A(.*?)%2C%5C%22dis.*?/)![1]
+      data_json = data_json.replace(finddate, dayjs().format('YYYY-MM-DD'))
+      data_json = data_json.replace(findstep, this.step.toString())
+      // 配置请求体
+      const url = `https://api-mifit-cn.huami.com/v1/data/band_data.json?&t=${Date.now()}`
+      const data = `userid=${userID}&last_sync_data_time=1597306380&device_type=0&last_deviceid=DA932FFFFE8816E7&data_json=${data_json}`
+      const response = await request.post(url, data, { headers: { apptoken, 'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)' } })
+      if (response.data.message === 'success') {
+        return { account: this.account, step: this.step, date: dayjs().format('YYYY-MM-DD HH:mm:ss') }
+      } else {
+        throw new Error(`本次步数提交失败`)
+      }
     } catch (error) {
       return Promise.reject(error)
     }

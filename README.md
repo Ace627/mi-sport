@@ -23,6 +23,9 @@ npm run dev
 
 ## 大致流程
 
+- 修改 .env 文件中的账号、密码、步数
+- 终端执行 npm run dev 即可
+
 ## 刷步原因
 
 - 微信运动置顶广告位
@@ -33,6 +36,7 @@ npm run dev
 
 ## 注意事项
 
+- [需先按此链接注册小米运动](https://www.yuque.com/yuqueyonghuqglrmj/yk9hxb/ki04zg?singleDoc)
 - 微信运动上限 98800
 - 刷步间隔建议半小时及以上
 - 不建议刷 66666、88888 等特殊数据

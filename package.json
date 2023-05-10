@@ -10,7 +10,9 @@
     "dev": "ts-node src/main.ts"
   },
   "dependencies": {
-    "axios": "^1.4.0"
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",
