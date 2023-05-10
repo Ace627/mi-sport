@@ -1,6 +1,9 @@
+import dayjs from 'dayjs'
 import dotenv from 'dotenv'
-import ZeepLife from './common/ZeppLife'
+import ZeepLife from './modules/ZeppLife'
 dotenv.config()
+
+/* ---------------------------------- 执行刷步 ---------------------------------- */
 ;(async () => {
   try {
     const account = process.env.Mi_Account as string
@@ -10,6 +13,6 @@ dotenv.config()
     const data = await zeppLife.main()
     console.log(data)
   } catch (error: any) {
-    console.log(error.message || error)
+    console.log(`${dayjs().format('YYYY-MM-DD HH:mm:ss')} [warning]: ${error.message || '未知异常'}`)
   }
 })()
