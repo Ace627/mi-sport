@@ -1,12 +1,9 @@
-import path from 'path'
-import { readFile } from 'fs/promises'
 import dayjs from 'dayjs'
 import { isEmail } from '@/utils/validate'
 import { toUrlEncode } from '@/utils'
 import request from '@/utils/request'
+import SportData from './data_json'
 import type { TokenInfo } from './type'
-
-const Data_Path = path.resolve(process.cwd(), 'src/modules/ZeppLife/data_json.txt')
 
 export default class ZeepLife {
   private account: string
@@ -20,8 +17,7 @@ export default class ZeepLife {
   }
 
   // 根据传入的步数获取提交的服务器的最终数据
-  private async getSportData(): Promise<string> {
-    let data_json = await readFile(Data_Path, 'utf-8')
+  private async getSportData(data_json: string): Promise<string> {
     const finddate = data_json.match(/.*?date%22%3A%22(.*?)%22%2C%22data.*?/)![1]
     const findstep = data_json.match(/.*?ttl%5C%22%3A(.*?)%2C%5C%22dis.*?/)![1]
     data_json = data_json.replace(finddate, dayjs().format('YYYY-MM-DD'))
@@ -73,7 +69,7 @@ export default class ZeepLife {
       const code = await this.getAccessCode()
       if (!code) throw new Error(`账号或者密码异常`)
       const { user_id: userID, app_token: apptoken } = await this.getTokenInfo(code)
-      const data_json = await this.getSportData()
+      const data_json = await this.getSportData(SportData)
       const url = `https://api-mifit-cn.huami.com/v1/data/band_data.json?&t=${Date.now()}`
       const data = `userid=${userID}&last_sync_data_time=1597306380&device_type=0&last_deviceid=DA932FFFFE8816E7&data_json=${data_json}`
       const response = await request.post(url, data, { headers: { apptoken, 'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)' } })
