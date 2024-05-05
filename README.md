@@ -10,10 +10,10 @@ git clone https://github.com/Ace627/mi-sport.git
 cd mi-sport
 
 # 安装依赖 | 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。
-npm i
+pnpm i
 
 # 启动服务
-npm run dev
+pnpm dev
 ```
 
 ## 项目说明
