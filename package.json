@@ -7,7 +7,7 @@
   "author": "Legendary <1207588603@qq.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node -r tsconfig-paths/register src/main.ts"
+    "dev": "esno src/main.ts"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.8",
-    "ts-node": "^10.9.2",
+    "esno": "^4.7.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
   }
